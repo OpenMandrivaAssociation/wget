@@ -26,6 +26,7 @@ BuildRequires:	texinfo
 BuildRequires:  autoconf2.5
 Requires(pre):	info-install
 Requires(post):	info-install
+BuildRoot: 	%_tmppath/%name-%version-%release-root
 
 
 %description
