@@ -1,12 +1,12 @@
 Summary: 	A utility for retrieving files using the HTTP or FTP protocols
 Name: 		wget
-Version: 	1.11
+Version: 	1.11.1
 Release: 	%mkrel 1
 Group: 		Networking/WWW
-License: 	GPLv3+
+License: 	GPLv3
 URL: 		http://www.gnu.org/directory/GNU/wget.html
-Source0:	ftp://prep.ai.mit.edu/pub/gnu/%{name}-%{version}.tar.bz2
-# alt: ftp://ftp.gnu.org/gnu/wget/
+Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.bz2
+Source1:	%{SOURCE0}.sig
 Patch3:		wget-1.8-no-solaris-md5.h.patch
 Patch4:		wget-1.11-etc.patch
 Patch7:		wget-1.10-url_password.patch
