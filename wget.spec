@@ -1,6 +1,6 @@
 Summary: 	A utility for retrieving files using the HTTP or FTP protocols
 Name: 		wget
-Version: 	1.11.2
+Version: 	1.11.3
 Release: 	%mkrel 1
 Group: 		Networking/WWW
 License: 	GPLv3
