@@ -9,6 +9,7 @@ Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.sig
 Patch3:		wget-1.8-no-solaris-md5.h.patch
 Patch4:		wget-1.11-etc.patch
+# The following patch is needed for authenticated sites where login can have '@':
 Patch7:		wget-1.10-url_password.patch
 Patch9:		wget-1.11-logstdout.patch
 Patch10:	wget-1.10-referer-opt-typo.patch
