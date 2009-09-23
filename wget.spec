@@ -1,11 +1,11 @@
 Summary: 	A utility for retrieving files using the HTTP or FTP protocols
 Name: 		wget
-Version: 	1.11.4
-Release: 	%mkrel 3
+Version: 	1.12
+Release: 	%mkrel 1
 Group: 		Networking/WWW
 License: 	GPLv3
 URL: 		http://www.gnu.org/directory/GNU/wget.html
-Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.gz
 Source1:	%{SOURCE0}.sig
 Patch3:		wget-1.8-no-solaris-md5.h.patch
 Patch4:		wget-1.11-etc.patch
@@ -16,7 +16,6 @@ Patch10:	wget-1.10-referer-opt-typo.patch
 Patch11:	wget-1.9.1-fix-fr-translation.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.11-add-force-clobber-option.patch
-Patch14:	wget-1.11.4-nullcerts.diff
 Provides: 	webclient webfetch
 BuildRequires:	gettext
 BuildRequires:	openssl-devel
@@ -25,7 +24,7 @@ BuildRequires:	texinfo
 #BuildRequires:  autoconf2.5
 Requires(pre):	info-install
 Requires(post):	info-install
-BuildRoot: 	%_tmppath/%name-%version-%release-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 
 %description
@@ -40,14 +39,13 @@ configurability.
 %prep
 
 %setup -q
-%patch3 -p1 -b .md5
+%patch3 -p0 -b .md5
 %patch4 -p1 -b .etc
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
 %patch10 -p0 -b .typo
 %patch11 -p0 -b .frtypo
 %patch13 -p1 -b .force-clobber
-%patch14 -p0 -b .nullcerts
 
 %build
 #aclocal
