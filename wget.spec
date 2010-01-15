@@ -1,7 +1,7 @@
 Summary: 	A utility for retrieving files using the HTTP or FTP protocols
 Name: 		wget
 Version: 	1.12
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 Group: 		Networking/WWW
 License: 	GPLv3
 URL: 		http://www.gnu.org/directory/GNU/wget.html
@@ -20,6 +20,7 @@ Provides: 	webclient webfetch
 BuildRequires:	gettext
 BuildRequires:	openssl-devel
 BuildRequires:	texinfo
+BuildRequires:	idn-devel
 #gw if patched:
 #BuildRequires:  autoconf2.5
 Requires(pre):	info-install
