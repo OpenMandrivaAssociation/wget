@@ -1,7 +1,7 @@
 Summary: 	A utility for retrieving files using the HTTP or FTP protocols
 Name: 		wget
 Version: 	1.12
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 Group: 		Networking/WWW
 License: 	GPLv3
 URL: 		http://www.gnu.org/directory/GNU/wget.html
@@ -16,6 +16,7 @@ Patch10:	wget-1.10-referer-opt-typo.patch
 Patch11:	wget-1.9.1-fix-fr-translation.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.11-add-force-clobber-option.patch
+Patch14:	wget-1.12-CVE-2010-2252.diff
 Provides: 	webclient webfetch
 BuildRequires:	gettext
 BuildRequires:	openssl-devel
@@ -47,6 +48,7 @@ configurability.
 %patch10 -p0 -b .typo
 %patch11 -p0 -b .frtypo
 %patch13 -p1 -b .force-clobber
+%patch14 -p1 -b .CVE-2010-2252
 
 %build
 #aclocal
