@@ -53,7 +53,8 @@ configurability.
 %build
 %configure2_5x \
 	--enable-ipv6 \
-	--disable-rpath
+	--disable-rpath \
+	--with-ssl=openssl
 
 %make
 
