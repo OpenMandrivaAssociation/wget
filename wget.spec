@@ -1,11 +1,11 @@
 Summary: 	A utility for retrieving files using the HTTP or FTP protocols
 Name: 		wget
-Version: 	1.12
-Release: 	%mkrel 6
+Version: 	1.13.4
+Release: 	%mkrel 1
 Group: 		Networking/WWW
 License: 	GPLv3
 URL: 		http://www.gnu.org/directory/GNU/wget.html
-Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.xz
 Source1:	%{SOURCE0}.sig
 Patch3:		wget-1.8-no-solaris-md5.h.patch
 Patch4:		wget-1.11-etc.patch
@@ -15,13 +15,14 @@ Patch9:		wget-1.11-logstdout.patch
 Patch10:	wget-1.10-referer-opt-typo.patch
 Patch11:	wget-1.9.1-fix-fr-translation.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
-Patch13:	wget-1.11-add-force-clobber-option.patch
-Patch14:	wget-1.12-CVE-2010-2252.diff
-Provides: 	webclient webfetch
+Patch13:	wget-1.13.3-add-force-clobber-option.patch
+Provides: 	webclient
+Provides:	webfetch
 BuildRequires:	gettext
 BuildRequires:	openssl-devel
 BuildRequires:	texinfo
 BuildRequires:	idn-devel
+BuildRequires:	perl(HTTP::Daemon)
 #gw if patched:
 #BuildRequires:  autoconf2.5
 Requires(pre):	info-install
@@ -41,19 +42,15 @@ configurability.
 %prep
 
 %setup -q
-%patch3 -p0 -b .md5
-%patch4 -p1 -b .etc
+#%patch3 -p0 -b .md5
+#%patch4 -p1 -b .etc
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
 %patch10 -p0 -b .typo
-%patch11 -p0 -b .frtypo
+#%patch11 -p0 -b .frtypo
 %patch13 -p1 -b .force-clobber
-%patch14 -p1 -b .CVE-2010-2252
 
 %build
-#aclocal
-./autogen.sh
-
 %configure2_5x \
 	--enable-ipv6 \
 	--disable-rpath
