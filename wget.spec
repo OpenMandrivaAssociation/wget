@@ -1,7 +1,7 @@
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.13.4
-Release:	%mkrel 2
+Version:	1.14
+Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -51,8 +51,6 @@ configurability.
 make check
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
@@ -66,9 +64,6 @@ install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 %preun
 %_remove_install_info %{name}.info
 %endif
-
-%clean
-rm -fr %{buildroot}
 
 %files -f %{name}.lang
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wgetrc
