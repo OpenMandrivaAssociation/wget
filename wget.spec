@@ -10,7 +10,6 @@ Source1:	%{SOURCE0}.sig
 # The following patch is needed for authenticated sites where login can have '@':
 Patch7:		wget-1.10-url_password.patch
 Patch9:		wget-1.11-logstdout.patch
-Patch10:	wget-1.10-referer-opt-typo.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.13.3-add-force-clobber-option.patch
 Provides:	webclient
@@ -35,7 +34,6 @@ configurability.
 %setup -q
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
-%patch10 -p0 -b .typo
 %patch13 -p1 -b .force-clobber
 
 %build
