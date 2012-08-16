@@ -34,7 +34,7 @@ configurability.
 %setup -q
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
-%patch13 -p1 -b .force-clobber
+%patch13 -p0 -b .force-clobber
 
 %build
 %configure2_5x \
