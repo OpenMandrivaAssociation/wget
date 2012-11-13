@@ -1,0 +1,103 @@
+--- src/ftp.c.clobber	2012-05-12 23:18:27.000000000 +0800
++++ src/ftp.c	2012-08-06 16:41:32.000000000 +0800
+@@ -1181,7 +1181,7 @@
+           fp = fopen (con->target, "ab");
+ #endif /* def __VMS [else] */
+         }
+-      else if (opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct
++      else if (opt.forceclobber || opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct
+                || opt.output_document || count > 0)
+         {
+ 	  if (opt.unlink && file_exists_p (con->target))
+--- src/http.c.clobber	2012-07-07 16:57:20.000000000 +0800
++++ src/http.c	2012-08-06 16:41:32.000000000 +0800
+@@ -1651,7 +1651,7 @@
+ /* The flags that allow clobbering the file (opening with "wb").
+    Defined here to avoid repetition later.  #### This will require
+    rework.  */
+-#define ALLOW_CLOBBER (opt.noclobber || opt.always_rest || opt.timestamping \
++#define ALLOW_CLOBBER (opt.forceclobber || opt.noclobber || opt.always_rest || opt.timestamping \
+                        || opt.dirstruct || opt.output_document)
+ 
+ /* Retrieve a document through HTTP protocol.  It recognizes status
+--- src/init.c.clobber	2012-07-08 17:35:36.000000000 +0800
++++ src/init.c	2012-08-06 16:41:32.000000000 +0800
+@@ -175,6 +175,7 @@
+   { "excludedomains",   &opt.exclude_domains,   cmd_vector },
+   { "followftp",        &opt.follow_ftp,        cmd_boolean },
+   { "followtags",       &opt.follow_tags,       cmd_vector },
++  { "forceclobber",     &opt.forceclobber,      cmd_boolean },
+   { "forcehtml",        &opt.force_html,        cmd_boolean },
+   { "ftppasswd",        &opt.ftp_passwd,        cmd_string }, /* deprecated */
+   { "ftppassword",      &opt.ftp_passwd,        cmd_string },
+--- src/main.c.clobber	2012-07-07 16:26:21.000000000 +0800
++++ src/main.c	2012-08-06 16:41:32.000000000 +0800
+@@ -198,6 +198,7 @@
+     { "execute", 'e', OPT__EXECUTE, NULL, required_argument },
+     { "follow-ftp", 0, OPT_BOOLEAN, "followftp", -1 },
+     { "follow-tags", 0, OPT_VALUE, "followtags", -1 },
++    { "force-clobber", 0, OPT_BOOLEAN, "forceclobber", -1 },
+     { "force-directories", 'x', OPT_BOOLEAN, "dirstruct", -1 },
+     { "force-html", 'F', OPT_BOOLEAN, "forcehtml", -1 },
+     { "ftp-password", 0, OPT_VALUE, "ftppassword", -1 },
+@@ -481,6 +482,8 @@
+     N_("\
+   -O,  --output-document=FILE    write documents to FILE.\n"),
+     N_("\
++  --force-clobber                clobber existing files.\n"),
++    N_("\
+   -nc, --no-clobber              skip downloads that would download to\n\
+                                  existing files (overwriting them).\n"),
+     N_("\
+@@ -1221,7 +1224,21 @@
+   if (opt.timestamping && opt.noclobber)
+     {
+       fprintf (stderr, _("\
+-Can't timestamp and not clobber old files at the same time.\n"));
++                         Can't timestamp and not clobber old files at the same time.\n"));
++      print_usage (1);
++      exit (1);
++    }
++    if (opt.timestamping && opt.forceclobber)
++    {
++      printf (_("\
++                +Can't timestamp and force clobber old files at the same time.\n"));
++      print_usage (1);
++      exit (1);
++    }
++    if (opt.forceclobber && opt.noclobber)
++    {
++      printf (_("\
++                +Can't force clobber and not clobber old files at the same time.\n"));
+       print_usage (1);
+       exit (1);
+     }
+--- src/options.h.clobber	2012-06-06 19:42:10.000000000 +0800
++++ src/options.h	2012-08-06 16:41:32.000000000 +0800
+@@ -53,6 +53,7 @@
+   int cut_dirs;			/* Number of directory components to cut. */
+   bool add_hostdir;		/* Do we add hostname directory? */
+   bool protocol_directories;	/* Whether to prepend "http"/"ftp" to dirs. */
++  int forceclobber;		/* Forces clobbering of existing files. */
+   bool noclobber;		/* Disables clobbering of existing
+ 				   data. */
+   bool unlink;			/* remove file before clobbering */
+--- src/url.c.clobber	2012-05-15 04:43:33.000000000 +0800
++++ src/url.c	2012-08-06 16:41:32.000000000 +0800
+@@ -1583,6 +1583,7 @@
+   fname = fnres.base;
+ 
+   /* Check the cases in which the unique extensions are not used:
++     0) Clobbering is forced (--force-clobber)
+      1) Clobbering is turned off (-nc).
+      2) Retrieval with regetting.
+      3) Timestamping is used.
+@@ -1591,7 +1592,7 @@
+      The exception is the case when file does exist and is a
+      directory (see `mkalldirs' for explanation).  */
+ 
+-  if ((opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct)
++  if ((opt.forceclobber || opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct)
+       && !(file_exists_p (fname) && !file_non_directory_p (fname)))
+     {
+       unique = fname;

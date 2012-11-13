@@ -1,0 +1,28 @@
+diff -Naur wget-1.11/src/log.c wget-1.11.tpg/src/log.c
+--- wget-1.11/src/log.c	2008-01-26 09:26:57.000000000 +0000
++++ wget-1.11.tpg/src/log.c	2008-01-28 17:08:40.000000000 +0000
+@@ -516,12 +516,19 @@
+ {
+   if (file)
+     {
+-      logfp = fopen (file, appendp ? "a" : "w");
+-      if (!logfp)
+-        {
+-          fprintf (stderr, "%s: %s: %s\n", exec_name, file, strerror (errno));
+-          exit (1);
++      if (strcmp(file, "-"))
++	{
++	  logfp = fopen (file, appendp ? "a" : "w");
++	  if (!logfp)
++	    {
++	      perror (opt.lfilename);
++              exit (1);
++            }
+         }
++      else
++          {
++            logfp = stdout;
++          }
+     }
+   else
+     {
