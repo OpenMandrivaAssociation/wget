@@ -1,3 +1,5 @@
+%bcond_with	crosscompile
+
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.14
@@ -40,7 +42,10 @@ configurability.
 %configure2_5x \
 	--enable-ipv6 \
 	--disable-rpath \
-	--with-ssl=openssl
+	--with-ssl=openssl \
+%if %{with crosscompile}
+	--with-libssl-prefix=$SYSROOT
+%endif
 
 %make
 
