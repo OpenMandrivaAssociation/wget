@@ -2,13 +2,12 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.14
-Release:	11
+Version:	1.15
+Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
 Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.xz
-Source1:	%{SOURCE0}.sig
 # The following patch is needed for authenticated sites where login can have '@':
 Patch7:		wget-1.10-url_password.patch
 Patch9:		wget-1.11-logstdout.patch
