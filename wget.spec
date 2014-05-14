@@ -13,6 +13,7 @@ Patch7:		wget-1.10-url_password.patch
 Patch9:		wget-1.11-logstdout.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.13.3-add-force-clobber-option.patch
+Patch14:	wget-1.15-etc.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	gettext
@@ -36,6 +37,7 @@ configurability.
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
 %patch13 -p0 -b .force-clobber
+%patch14 -p1 -b .etc
 
 %build
 %configure2_5x \
