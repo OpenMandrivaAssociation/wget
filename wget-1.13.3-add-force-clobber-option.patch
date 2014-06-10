@@ -93,3 +93,16 @@
       2) Retrieval with regetting.
       3) Timestamping is used.
 
+--- src/main.c.omv~	2014-06-10 22:57:13.877359747 +0200
++++ src/main.c	2014-06-10 22:57:48.890922018 +0200
+@@ -322,7 +322,9 @@ static struct cmdline_option option_data
+ static char *
+ no_prefix (const char *s)
+ {
+-  static char buffer[1024];
++  // NOTE: This buffer is filled with all long_options.
++  // Make sure it doesn't overflow when adding new options!
++  static char buffer[2048];
+   static char *p = buffer;
+ 
+   char *cp = p;
