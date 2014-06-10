@@ -18,7 +18,7 @@ Patch15:	wget-1.15-pkg-config.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	gettext
-BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig(openssl)
 BuildRequires:	gettext-devel
 BuildRequires:	texinfo
 BuildRequires:	idn-devel
