@@ -3,7 +3,7 @@
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.15
-Release:	2
+Release:	3
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -37,9 +37,8 @@ configurability.
 %setup -q
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
-# disabled
 # force-clobber lead to segfaults on arm64
-#patch13 -p0 -b .force-clobber
+%patch13 -p0 -b .force-clobber
 %patch14 -p1 -b .etc
 %patch15 -p1 .pkgc
 
