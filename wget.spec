@@ -19,6 +19,7 @@ Provides:	webclient
 Provides:	webfetch
 BuildRequires:	gettext
 BuildRequires:	openssl-devel
+BuildRequires:	gettext-devel
 BuildRequires:	texinfo
 BuildRequires:	idn-devel
 BuildRequires:	perl(HTTP::Daemon)
