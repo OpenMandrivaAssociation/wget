@@ -3,7 +3,7 @@
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.15
-Release:	1
+Release:	2
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -14,6 +14,7 @@ Patch9:		wget-1.11-logstdout.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.13.3-add-force-clobber-option.patch
 Patch14:	wget-1.15-etc.patch
+Patch15:	wget-1.15-pkg-config.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	gettext
@@ -32,12 +33,16 @@ slow or unstable connections, support for Proxy servers, and
 configurability.
 
 %prep
-
 %setup -q
 %patch7 -p0 -b .url_password
 %patch9 -p1 -b .logstdout
-%patch13 -p0 -b .force-clobber
+# disabled
+# force-clobber lead to segfaults on arm64
+#patch13 -p0 -b .force-clobber
 %patch14 -p1 -b .etc
+%patch15 -p1 .pkgc
+
+autoreconf -fiv
 
 %build
 %configure2_5x \
@@ -60,14 +65,6 @@ make check
 install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 
 %find_lang %{name}
-
-%if %{mdvver} < 201200
-%post
-%_install_info %{name}.info
-
-%preun
-%_remove_install_info %{name}.info
-%endif
 
 %files -f %{name}.lang
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wgetrc
