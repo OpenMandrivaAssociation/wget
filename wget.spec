@@ -2,8 +2,8 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.15
-Release:	7
+Version:	1.16
+Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -45,7 +45,7 @@ configurability.
 autoreconf -fiv
 
 %build
-%configure2_5x \
+%configure \
 	--enable-ipv6 \
 	--disable-rpath \
 	--with-ssl=openssl \
