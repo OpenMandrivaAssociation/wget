@@ -14,6 +14,7 @@ Patch7:		wget-1.10-url_password.patch
 Patch13:	wget-1.16-add-force-clobber-option.patch
 Patch14:	wget-1.15-etc.patch
 Patch15:	wget-1.16-pkg-config.patch
+Patch16:	wget-1.16-tests-skip.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	gettext
@@ -38,7 +39,8 @@ configurability.
 # force-clobber lead to segfaults on arm64
 %patch13 -p1 -b .force-clobber
 %patch14 -p1 -b .etc
-%patch15 -p1 .pkgc
+%patch15 -p1 -b .pkgc
+%patch16 -p1 -b .skip
 
 autoreconf -fiv
 
