@@ -1,0 +1,98 @@
+diff -Naur wget-1.16/src/ftp.c wget-1.16.tpg/src/ftp.c
+--- wget-1.16/src/ftp.c	2014-10-27 08:18:13.000000000 +0000
++++ wget-1.16.tpg/src/ftp.c	2014-11-02 11:03:04.507204551 +0000
+@@ -1230,7 +1230,7 @@
+           fp = fopen (con->target, "ab");
+ #endif /* def __VMS [else] */
+         }
+-      else if (opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct
++      else if (opt.forceclobber || opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct
+                || opt.output_document || count > 0)
+         {
+           if (opt.unlink && file_exists_p (con->target))
+diff -Naur wget-1.16/src/init.c wget-1.16.tpg/src/init.c
+--- wget-1.16/src/init.c	2014-10-27 08:18:13.000000000 +0000
++++ wget-1.16.tpg/src/init.c	2014-11-02 11:05:24.894150459 +0000
+@@ -177,6 +177,7 @@
+   { "excludedomains",   &opt.exclude_domains,   cmd_vector },
+   { "followftp",        &opt.follow_ftp,        cmd_boolean },
+   { "followtags",       &opt.follow_tags,       cmd_vector },
++  { "forceclobber",     &opt.forceclobber,      cmd_boolean },
+   { "forcehtml",        &opt.force_html,        cmd_boolean },
+   { "ftppasswd",        &opt.ftp_passwd,        cmd_string }, /* deprecated */
+   { "ftppassword",      &opt.ftp_passwd,        cmd_string },
+diff -Naur wget-1.16/src/main.c wget-1.16.tpg/src/main.c
+--- wget-1.16/src/main.c	2014-07-25 07:50:10.000000000 +0000
++++ wget-1.16.tpg/src/main.c	2014-11-02 11:17:23.850401039 +0000
+@@ -192,6 +192,7 @@
+     { "execute", 'e', OPT__EXECUTE, NULL, required_argument },
+     { "follow-ftp", 0, OPT_BOOLEAN, "followftp", -1 },
+     { "follow-tags", 0, OPT_VALUE, "followtags", -1 },
++    { "force-clobber", 0, OPT_BOOLEAN, "forceclobber", -1 },
+     { "force-directories", 'x', OPT_BOOLEAN, "dirstruct", -1 },
+     { "force-html", 'F', OPT_BOOLEAN, "forcehtml", -1 },
+     { "ftp-password", 0, OPT_VALUE, "ftppassword", -1 },
+@@ -481,6 +482,8 @@
+     N_("\
+   -O,  --output-document=FILE      write documents to FILE.\n"),
+     N_("\
++  --force-clobber                clobber existing files.\n"),
++    N_("\
+   -nc, --no-clobber                skip downloads that would download to\n\
+                                    existing files (overwriting them).\n"),
+     N_("\
+@@ -1261,6 +1264,20 @@
+       fprintf (stderr, _("\
+ Can't timestamp and not clobber old files at the same time.\n"));
+       print_usage (1);
++      exit (1);
++    }
++    if (opt.timestamping && opt.forceclobber)
++    {
++      printf (_("\
++                +Can't timestamp and force clobber old files at the same time.\n"));
++      print_usage (1);
++      exit (1);
++    }
++    if (opt.forceclobber && opt.noclobber)
++    {
++      printf (_("\
++                +Can't force clobber and not clobber old files at the same time.\n"));
++      print_usage (1);
+       exit (WGET_EXIT_GENERIC_ERROR);
+     }
+ #ifdef ENABLE_IPV6
+diff -Naur wget-1.16/src/options.h wget-1.16.tpg/src/options.h
+--- wget-1.16/src/options.h	2014-10-27 08:15:33.000000000 +0000
++++ wget-1.16.tpg/src/options.h	2014-11-02 11:17:50.888163501 +0000
+@@ -53,6 +53,7 @@
+   int cut_dirs;                 /* Number of directory components to cut. */
+   bool add_hostdir;             /* Do we add hostname directory? */
+   bool protocol_directories;    /* Whether to prepend "http"/"ftp" to dirs. */
++  int forceclobber;            /* Forces clobbering of existing files. */
+   bool noclobber;               /* Disables clobbering of existing data. */
+   bool unlink;                  /* remove file before clobbering */
+   char *dir_prefix;             /* The top of directory tree */
+diff -Naur wget-1.16/src/url.c wget-1.16.tpg/src/url.c
+--- wget-1.16/src/url.c	2014-11-02 11:01:33.000000000 +0000
++++ wget-1.16.tpg/src/url.c	2014-11-02 11:18:20.159988979 +0000
+@@ -1662,6 +1662,7 @@
+   free (temp_fnres.base);
+ 
+   /* Check the cases in which the unique extensions are not used:
++     0) Clobbering is forced (--force-clobber)
+      1) Clobbering is turned off (-nc).
+      2) Retrieval with regetting.
+      3) Timestamping is used.
+diff -Naur wget-1.16/src/url.h wget-1.16.tpg/src/url.h
+--- wget-1.16/src/url.h	2014-06-22 16:40:08.000000000 +0000
++++ wget-1.16.tpg/src/url.h	2014-11-02 11:03:31.448961597 +0000
+@@ -50,7 +50,7 @@
+ /* The flags that allow clobbering the file (opening with "wb").
+    Defined here to avoid repetition later.  #### This will require
+    rework.  */
+-#define ALLOW_CLOBBER (opt.noclobber || opt.always_rest || opt.timestamping \
++#define ALLOW_CLOBBER (opt.forceclobber || opt.noclobber || opt.always_rest || opt.timestamping \
+                   || opt.dirstruct || opt.output_document || opt.backups > 0)
+ 
+ /* Specifies how, or whether, user auth information should be included

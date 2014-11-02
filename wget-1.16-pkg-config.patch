@@ -126,9 +126,16 @@ index c5437bf..e0e2b25 100644
      AC_CHECK_FUNCS(gnutls_priority_set_direct)
    ]) # endif: --with-ssl != no?
  ]) # endif: --with-ssl == openssl?
-@@ -535,26 +565,43 @@ dnl
+@@ -542,32 +542,51 @@ fi
+ dnl
  dnl Check for UUID
  dnl
+-AC_CHECK_HEADER(uuid.h,
+-                AC_CHECK_FUNC(uuid, uuid_create,
+-                  [AC_DEFINE([HAVE_UUID_CREATE], 1,
+-                             [Define if uuid_create is available.])
+-                  ])
+-)
  
 -AC_CHECK_HEADER(uuid/uuid.h,
 -                AC_CHECK_LIB(uuid, uuid_generate,
@@ -145,12 +152,19 @@ index c5437bf..e0e2b25 100644
 +    CFLAGS="$UUID_CFLAGS $CFLAGS"
 +    AC_DEFINE([HAVE_LIBUUID], [1], [Define if using libuuid.])
 +  ], [
++    AC_CHECK_HEADER(uuid.h,
++                    AC_CHECK_FUNC(uuid, uuid_create,
++                      [AC_DEFINE([HAVE_UUID_CREATE], 1,
++                                 [Define if uuid_create is available.])
++                      ])
++    )
++
 +    AC_CHECK_HEADER(uuid/uuid.h,
-+		    AC_CHECK_LIB(uuid, uuid_generate,
-+				 [LIBS="${LIBS} -luuid"
-+				  AC_DEFINE([HAVE_LIBUUID], 1,
-+					    [Define if libuuid is available.])
-+				 ])
++                    AC_CHECK_LIB(uuid, uuid_generate,
++                      [LIBS="${LIBS} -luuid"
++                       AC_DEFINE([HAVE_LIBUUID], 1,
++                                 [Define if libuuid is available.])
++                      ])
 +    )
 +  ])
 +])
@@ -166,7 +180,6 @@ index c5437bf..e0e2b25 100644
 -                             [Define if libpcre is available.])
 -                  ])
 -)
--
 +AS_IF([test "X$enable_pcre" != "Xno"],[
 +  PKG_CHECK_MODULES([PCRE], libpcre, [
 +    LIBS="$PCRE_LIBS $LIBS"
@@ -174,17 +187,14 @@ index c5437bf..e0e2b25 100644
 +    AC_DEFINE([HAVE_LIBPCRE], [1], [Define if using libpcre.])
 +  ], [
 +    AC_CHECK_HEADER(pcre.h,
-+		    AC_CHECK_LIB(pcre, pcre_compile,
-+				 [LIBS="${LIBS} -lpcre"
-+				  AC_DEFINE([HAVE_LIBPCRE], 1,
-+					    [Define if libpcre is available.])
-+				 ])
++                    AC_CHECK_LIB(pcre, pcre_compile,
++                      [LIBS="${LIBS} -lpcre"
++                       AC_DEFINE([HAVE_LIBPCRE], 1,
++                                 [Define if libpcre is available.])
++                      ])
 +    )
 +  ])
 +])
-  
+ 
+ 
  dnl Needed by src/Makefile.am
- AM_CONDITIONAL([IRI_IS_ENABLED], [test "X$iri" != "Xno"])
--- 
-1.9.3
-
