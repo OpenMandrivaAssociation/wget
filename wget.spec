@@ -2,8 +2,8 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.16
-Release:	2
+Version:	1.16.1
+Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -11,10 +11,8 @@ Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.xz
 # The following patch is needed for authenticated sites where login can have '@':
 Patch7:		wget-1.10-url_password.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
-Patch13:	wget-1.16-add-force-clobber-option.patch
+Patch13:	wget-1.16.1-add-force-clobber-option.patch
 Patch14:	wget-1.15-etc.patch
-Patch15:	wget-1.16-pkg-config.patch
-Patch16:	wget-1.16-tests-skip.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	gettext
@@ -35,12 +33,7 @@ configurability.
 
 %prep
 %setup -q
-%patch7 -p0 -b .url_password
-# force-clobber lead to segfaults on arm64
-%patch13 -p1 -b .force-clobber
-%patch14 -p1 -b .etc
-%patch15 -p1 -b .pkgc
-%patch16 -p1 -b .skip
+%apply_patches
 
 autoreconf -fiv
 
