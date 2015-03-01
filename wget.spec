@@ -2,7 +2,7 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.16.1
+Version:	1.16.2
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
@@ -35,7 +35,9 @@ configurability.
 %setup -q
 %apply_patches
 
-autoreconf -fiv
+aclocal -I m4
+automake -a
+autoconf
 
 %build
 %configure \
