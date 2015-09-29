@@ -1,9 +1,9 @@
-%bcond_with	crosscompile
+%bcond_with crosscompile
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.16.3
-Release:	3
+Release:	4
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -21,7 +21,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	texinfo
 BuildRequires:	idn-devel
 BuildRequires:	perl(HTTP::Daemon)
-Requires:	openssl
+Requires:	rootcerts
 
 %description
 GNU Wget is a file retrieval utility which can use either the HTTP or FTP
