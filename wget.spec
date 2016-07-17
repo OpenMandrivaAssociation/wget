@@ -3,7 +3,7 @@
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.18
-Release:	1
+Release:	2
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -65,7 +65,7 @@ install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 
 %files -f %{name}.lang
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wgetrc
-%doc AUTHORS ChangeLog MAILING-LIST NEWS README
+%doc AUTHORS MAILING-LIST NEWS README
 %{_bindir}/*
 %{_infodir}/*
 %{_mandir}/man1/wget.1*
