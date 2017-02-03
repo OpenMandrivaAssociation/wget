@@ -1,9 +1,9 @@
-%bcond_with	crosscompile
+%bcond_with crosscompile
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.18
-Release:	0.1
+Version:	1.19
+Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -41,7 +41,7 @@ automake -a
 autoconf
 
 %build
-%configure2_5x \
+%configure \
 	--enable-ipv6 \
 	--disable-rpath \
 	--with-ssl=openssl \
@@ -65,7 +65,7 @@ install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 
 %files -f %{name}.lang
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wgetrc
-%doc AUTHORS ChangeLog MAILING-LIST NEWS README
+%doc AUTHORS MAILING-LIST NEWS README
 %{_bindir}/*
 %{_infodir}/*
 %{_mandir}/man1/wget.1*
