@@ -2,7 +2,7 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.19
+Version:	1.19.1
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
@@ -20,7 +20,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	gettext-devel
 BuildRequires:	texinfo
 BuildRequires:	idn-devel
-BuildRequires:	perl(HTTP::Daemon)
+#BuildRequires:	perl(HTTP::Daemon)
 Requires:	rootcerts
 
 %description
