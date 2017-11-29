@@ -15,6 +15,7 @@ Patch13:	wget-1.16.1-add-force-clobber-option.patch
 Patch14:	wget-1.15-etc.patch
 Provides:	webclient
 Provides:	webfetch
+BuildRequires:	lzip
 BuildRequires:	gettext
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	gettext-devel
