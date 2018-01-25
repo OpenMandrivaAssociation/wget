@@ -1,8 +1,7 @@
-diff --git a/src/ftp.c b/src/ftp.c
-index 2f2866c..ab22b3a 100644
---- a/src/ftp.c
-+++ b/src/ftp.c
-@@ -1460,7 +1460,7 @@ Error in server response, closing control connection.\n"));
+diff -urN wget-1.18/src/ftp.c wget-1.18-patched/src/ftp.c
+--- wget-1.18/src/ftp.c	2016-06-10 02:10:14.000000000 +1000
++++ wget-1.18-patched/src/ftp.c	2016-07-10 15:04:38.840204226 +1000
+@@ -1427,7 +1427,7 @@
            fp = fopen (con->target, "ab");
  #endif /* def __VMS [else] */
          }
@@ -10,12 +9,11 @@ index 2f2866c..ab22b3a 100644
 +      else if (opt.forceclobber || opt.noclobber || opt.always_rest || opt.timestamping || opt.dirstruct
                 || opt.output_document || count > 0)
          {
-           if (opt.unlink_requested && file_exists_p (con->target))
-diff --git a/src/init.c b/src/init.c
-index e6aa673..4f7b917 100644
---- a/src/init.c
-+++ b/src/init.c
-@@ -194,6 +194,7 @@ static const struct {
+           if (opt.unlink_requested && file_exists_p (con->target, NULL))
+diff -urN wget-1.18/src/init.c wget-1.18-patched/src/init.c
+--- wget-1.18/src/init.c	2016-06-03 21:55:13.000000000 +1000
++++ wget-1.18-patched/src/init.c	2016-07-10 15:04:38.841204226 +1000
+@@ -192,6 +192,7 @@
    { "excludedomains",   &opt.exclude_domains,   cmd_vector },
    { "followftp",        &opt.follow_ftp,        cmd_boolean },
    { "followtags",       &opt.follow_tags,       cmd_vector },
@@ -23,11 +21,10 @@ index e6aa673..4f7b917 100644
    { "forcehtml",        &opt.force_html,        cmd_boolean },
    { "ftppasswd",        &opt.ftp_passwd,        cmd_string }, /* deprecated */
    { "ftppassword",      &opt.ftp_passwd,        cmd_string },
-diff --git a/src/main.c b/src/main.c
-index 581a33d..82388a2 100644
---- a/src/main.c
-+++ b/src/main.c
-@@ -304,6 +304,7 @@ static struct cmdline_option option_data[] =
+diff -urN wget-1.18/src/main.c wget-1.18-patched/src/main.c
+--- wget-1.18/src/main.c	2016-06-07 01:36:04.000000000 +1000
++++ wget-1.18-patched/src/main.c	2016-07-10 15:04:38.843204226 +1000
+@@ -302,6 +302,7 @@
      { "execute", 'e', OPT__EXECUTE, NULL, required_argument },
      { "follow-ftp", 0, OPT_BOOLEAN, "followftp", -1 },
      { "follow-tags", 0, OPT_VALUE, "followtags", -1 },
@@ -35,19 +32,22 @@ index 581a33d..82388a2 100644
      { "force-directories", 'x', OPT_BOOLEAN, "dirstruct", -1 },
      { "force-html", 'F', OPT_BOOLEAN, "forcehtml", -1 },
      { "ftp-password", 0, OPT_VALUE, "ftppassword", -1 },
-@@ -627,6 +628,8 @@ Download:\n"),
+@@ -618,6 +619,8 @@
      N_("\
    -O,  --output-document=FILE      write documents to FILE\n"),
      N_("\
-+  --force-clobber                  clobber existing files\n"),
++  --force-clobber                  clobber existing files.\n"),
 +    N_("\
    -nc, --no-clobber                skip downloads that would download to\n\
                                       existing files (overwriting them)\n"),
      N_("\
-@@ -1585,6 +1588,20 @@ main (int argc, char **argv)
+@@ -1463,7 +1466,21 @@
+   if (opt.timestamping && opt.noclobber)
+     {
        fprintf (stderr, _("\
- Can't timestamp and not clobber old files at the same time.\n"));
-       print_usage (1);
+-Can't timestamp and not clobber old files at the same time.\n"));
++                         Can't timestamp and not clobber old files at the same time.\n"));
++      print_usage (1);
 +      exit (1);
 +    }
 +    if (opt.timestamping && opt.forceclobber)
@@ -61,39 +61,35 @@ index 581a33d..82388a2 100644
 +    {
 +      printf (_("\
 +                +Can't force clobber and not clobber old files at the same time.\n"));
-+      print_usage (1);
+       print_usage (1);
        exit (WGET_EXIT_GENERIC_ERROR);
      }
- #ifdef ENABLE_IPV6
-diff --git a/src/options.h b/src/options.h
-index 3972945..1f12812 100644
---- a/src/options.h
-+++ b/src/options.h
-@@ -61,6 +61,7 @@ struct options
+diff -urN wget-1.18/src/options.h wget-1.18-patched/src/options.h
+--- wget-1.18/src/options.h	2016-06-03 21:55:13.000000000 +1000
++++ wget-1.18-patched/src/options.h	2016-07-10 15:04:38.843204226 +1000
+@@ -60,6 +60,7 @@
    int cut_dirs;                 /* Number of directory components to cut. */
    bool add_hostdir;             /* Do we add hostname directory? */
    bool protocol_directories;    /* Whether to prepend "http"/"ftp" to dirs. */
-+  int forceclobber;            /* Forces clobbering of existing files. */
++  int forceclobber;             /* Forces clobbering of existing files. */
    bool noclobber;               /* Disables clobbering of existing data. */
    bool unlink_requested;        /* remove file before clobbering */
    char *dir_prefix;             /* The top of directory tree */
-diff --git a/src/url.c b/src/url.c
-index bf5af3e..8d9db4d 100644
---- a/src/url.c
-+++ b/src/url.c
-@@ -1801,6 +1801,7 @@ url_file_name (const struct url *u, char *replaced_filename)
-   fname = convert_fname (fname);
+diff -urN wget-1.18/src/url.c wget-1.18-patched/src/url.c
+--- wget-1.18/src/url.c	2016-03-03 18:39:56.000000000 +1000
++++ wget-1.18-patched/src/url.c	2016-07-10 15:04:38.844204226 +1000
+@@ -1790,6 +1790,7 @@
+   xfree (temp_fnres.base);
  
    /* Check the cases in which the unique extensions are not used:
 +     0) Clobbering is forced (--force-clobber)
       1) Clobbering is turned off (-nc).
       2) Retrieval with regetting.
       3) Timestamping is used.
-diff --git a/src/url.h b/src/url.h
-index 94d1528..e1a5bbc 100644
---- a/src/url.h
-+++ b/src/url.h
-@@ -51,7 +51,7 @@ as that of the covered work.  */
+diff -urN wget-1.18/src/url.h wget-1.18-patched/src/url.h
+--- wget-1.18/src/url.h	2016-01-19 19:26:57.000000000 +1000
++++ wget-1.18-patched/src/url.h	2016-07-10 15:04:38.844204226 +1000
+@@ -51,7 +51,7 @@
  /* The flags that allow clobbering the file (opening with "wb").
     Defined here to avoid repetition later.  #### This will require
     rework.  */
