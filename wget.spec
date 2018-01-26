@@ -12,7 +12,7 @@ Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.lz
 Patch7:		wget-1.10-url_password.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.16.1-add-force-clobber-option.patch
-Patch14:	wget-1.15-etc.patch
+#Patch14:	wget-1.15-etc.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	lzip
