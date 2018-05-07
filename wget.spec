@@ -2,7 +2,7 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.19.3
+Version:	1.19.5
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
@@ -61,7 +61,7 @@ autoconf
 %install
 %makeinstall_std
 
-install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
+# install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 
 %find_lang %{name}
 
