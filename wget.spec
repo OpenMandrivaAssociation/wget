@@ -36,8 +36,7 @@ slow or unstable connections, support for Proxy servers, and
 configurability.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 aclocal -I m4
 automake -a
@@ -52,7 +51,7 @@ autoconf
 	--with-libssl-prefix=$SYSROOT
 %endif
 
-%make
+%make_build
 
 # all tests must pass (but where are they?)
 # (tpg) 2014-11-02 somehow tests fails only on x86_64 and i586
@@ -60,7 +59,7 @@ autoconf
 #make check
 
 %install
-%makeinstall_std
+%make_install
 
 # install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 
