@@ -9,17 +9,30 @@ diff -up wget-1.20.1/src/init.c.omv~ wget-1.20.1/src/init.c
    opt.use_proxy = true;
    opt.convert_file_only = false;
    tmp = getenv ("no_proxy");
-diff -up wget-1.20.1/src/main.c.omv~ wget-1.20.1/src/main.c
-diff -up wget-1.20.1/doc/wget.1.omv~ wget-1.20.1/doc/wget.1
---- wget-1.20.1/doc/wget.1.omv~	2019-01-10 17:03:38.814490957 +0100
-+++ wget-1.20.1/doc/wget.1	2019-01-10 17:04:52.015899068 +0100
-@@ -1448,7 +1448,8 @@ specified under \fB\-\-post\-data\fR are
+diff -up wget-1.20.1/doc/wget.info.omv~ wget-1.20.1/doc/wget.info
+--- wget-1.20.1/doc/wget.info.omv~	2019-02-11 22:17:20.676340374 +0100
++++ wget-1.20.1/doc/wget.info	2019-02-11 22:17:57.853907003 +0100
+@@ -1479,8 +1479,8 @@ File: wget.info,  Node: HTTP Options,  N
+      If this is set to on, experimental (not fully-functional) support
+      for ‘Content-Disposition’ headers is enabled.  This can currently
+      result in extra round-trips to the server for a ‘HEAD’ request, and
+-     is known to suffer from a few bugs, which is why it is not
+-     currently enabled by default.
++     is known to suffer from a few bugs. It is enabled by default.
++     Use ‘--no-content-disposition‘ to turn it off.
+ 
+      This option is useful for some file-downloading CGI programs that
+      use ‘Content-Disposition’ headers to describe what the name of a
+diff -up wget-1.20.1/doc/wget.texi.omv~ wget-1.20.1/doc/wget.texi
+--- wget-1.20.1/doc/wget.texi.omv~	2019-02-11 22:16:31.864596416 +0100
++++ wget-1.20.1/doc/wget.texi	2019-02-11 22:17:18.270303704 +0100
+@@ -1721,7 +1721,8 @@ specified under @samp{--post-data} are f
  If this is set to on, experimental (not fully-functional) support for
- \&\f(CW\*(C`Content\-Disposition\*(C'\fR headers is enabled. This can currently result in
- extra round-trips to the server for a \f(CW\*(C`HEAD\*(C'\fR request, and is known
+ @code{Content-Disposition} headers is enabled. This can currently result in
+ extra round-trips to the server for a @code{HEAD} request, and is known
 -to suffer from a few bugs, which is why it is not currently enabled by default.
-+to suffer from a few bugs. It is enabled by default. (Use \fB\-\-no\-content\-disposition\fR
-+to turn it off).
- .Sp
- This option is useful for some file-downloading \s-1CGI\s0 programs that use
- \&\f(CW\*(C`Content\-Disposition\*(C'\fR headers to describe what the name of a
++to suffer from a few bugs. It is enabled by default. Use
++@samp{--no-content-disposition} to turn it off.
+ 
+ This option is useful for some file-downloading CGI programs that use
+ @code{Content-Disposition} headers to describe what the name of a
