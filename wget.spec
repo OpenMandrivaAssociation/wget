@@ -1,5 +1,7 @@
 %bcond_with crosscompile
+%ifnarch riscv64
 %global optflags %{optflags} --rtlib=compiler-rt
+%endif
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
