@@ -1,7 +1,7 @@
-diff -up wget-1.20/configure.ac.0015~ wget-1.20/configure.ac
---- wget-1.20/configure.ac.0015~	2018-11-13 16:20:19.000000000 +0100
-+++ wget-1.20/configure.ac	2018-12-01 09:20:59.112955728 +0100
-@@ -180,6 +180,18 @@ dnl
+diff -up wget-1.20.2/configure.ac.4~ wget-1.20.2/configure.ac
+--- wget-1.20.2/configure.ac.4~	2019-02-19 22:25:45.000000000 +0100
++++ wget-1.20.2/configure.ac	2019-04-01 23:14:52.438364253 +0200
+@@ -189,6 +189,18 @@ dnl
  dnl Find the compiler
  dnl
  
@@ -20,9 +20,9 @@ diff -up wget-1.20/configure.ac.0015~ wget-1.20/configure.ac
  dnl We want these before the checks, so the checks can modify their values.
  test -z "$CFLAGS"  && CFLAGS= auto_cflags=1
  test -z "$CC" && cc_specified=yes
-diff -up wget-1.20/lib/fnmatch.c.0015~ wget-1.20/lib/fnmatch.c
---- wget-1.20/lib/fnmatch.c.0015~	2018-11-30 00:07:18.000000000 +0100
-+++ wget-1.20/lib/fnmatch.c	2018-12-01 09:20:59.112955728 +0100
+diff -up wget-1.20.2/lib/fnmatch.c.4~ wget-1.20.2/lib/fnmatch.c
+--- wget-1.20.2/lib/fnmatch.c.4~	2019-04-01 20:26:22.000000000 +0200
++++ wget-1.20.2/lib/fnmatch.c	2019-04-01 23:14:52.438364253 +0200
 @@ -66,7 +66,7 @@ extern int fnmatch (const char *pattern,
  #include "flexmember.h"
  
@@ -32,9 +32,9 @@ diff -up wget-1.20/lib/fnmatch.c.0015~ wget-1.20/lib/fnmatch.c
  #  define FALLTHROUGH ((void) 0)
  # else
  #  define FALLTHROUGH __attribute__ ((__fallthrough__))
-diff -up wget-1.20/lib/intprops.h.0015~ wget-1.20/lib/intprops.h
---- wget-1.20/lib/intprops.h.0015~	2018-11-30 00:07:18.000000000 +0100
-+++ wget-1.20/lib/intprops.h	2018-12-01 09:20:59.112955728 +0100
+diff -up wget-1.20.2/lib/intprops.h.4~ wget-1.20.2/lib/intprops.h
+--- wget-1.20.2/lib/intprops.h.4~	2019-04-01 20:26:22.000000000 +0200
++++ wget-1.20.2/lib/intprops.h	2019-04-01 23:14:52.438364253 +0200
 @@ -227,14 +227,11 @@
  # define _GL_HAS_BUILTIN_OVERFLOW 0
  #endif
@@ -60,9 +60,9 @@ diff -up wget-1.20/lib/intprops.h.0015~ wget-1.20/lib/intprops.h
  # define INT_NEGATE_OVERFLOW(a) INT_SUBTRACT_OVERFLOW (0, a)
  #else
  # define INT_NEGATE_OVERFLOW(a) \
-diff -up wget-1.20/lib/mbrtowc.c.0015~ wget-1.20/lib/mbrtowc.c
---- wget-1.20/lib/mbrtowc.c.0015~	2018-12-01 09:20:59.112955728 +0100
-+++ wget-1.20/lib/mbrtowc.c	2018-12-01 10:16:51.910218284 +0100
+diff -up wget-1.20.2/lib/mbrtowc.c.4~ wget-1.20.2/lib/mbrtowc.c
+--- wget-1.20.2/lib/mbrtowc.c.4~	2019-04-01 20:26:23.000000000 +0200
++++ wget-1.20.2/lib/mbrtowc.c	2019-04-01 23:14:52.438364253 +0200
 @@ -36,7 +36,7 @@
  # include "verify.h"
  
@@ -72,9 +72,9 @@ diff -up wget-1.20/lib/mbrtowc.c.0015~ wget-1.20/lib/mbrtowc.c
  #   define FALLTHROUGH ((void) 0)
  #  else
  #   define FALLTHROUGH __attribute__ ((__fallthrough__))
-diff -up wget-1.20/lib/quotearg.c.0015~ wget-1.20/lib/quotearg.c
---- wget-1.20/lib/quotearg.c.0015~	2018-11-30 00:07:20.000000000 +0100
-+++ wget-1.20/lib/quotearg.c	2018-12-01 09:20:59.113955729 +0100
+diff -up wget-1.20.2/lib/quotearg.c.4~ wget-1.20.2/lib/quotearg.c
+--- wget-1.20.2/lib/quotearg.c.4~	2019-04-01 20:26:23.000000000 +0200
++++ wget-1.20.2/lib/quotearg.c	2019-04-01 23:14:52.439364257 +0200
 @@ -55,7 +55,7 @@
  #define INT_BITS (sizeof (int) * CHAR_BIT)
  
@@ -84,21 +84,21 @@ diff -up wget-1.20/lib/quotearg.c.0015~ wget-1.20/lib/quotearg.c
  #  define FALLTHROUGH ((void) 0)
  # else
  #  define FALLTHROUGH __attribute__ ((__fallthrough__))
-diff -up wget-1.20/lib/regex_internal.h.0015~ wget-1.20/lib/regex_internal.h
---- wget-1.20/lib/regex_internal.h.0015~	2018-11-30 00:07:20.000000000 +0100
-+++ wget-1.20/lib/regex_internal.h	2018-12-01 09:20:59.113955729 +0100
-@@ -886,7 +886,7 @@ re_string_elem_size_at (const re_string_
- #endif
+diff -up wget-1.20.2/lib/regex_internal.h.4~ wget-1.20.2/lib/regex_internal.h
+--- wget-1.20.2/lib/regex_internal.h.4~	2019-04-01 23:14:52.439364257 +0200
++++ wget-1.20.2/lib/regex_internal.h	2019-04-01 23:17:00.890876217 +0200
+@@ -864,7 +864,7 @@ re_string_elem_size_at (const re_string_
+ #endif /* RE_ENABLE_I18N */
  
  #ifndef FALLTHROUGH
 -# if __GNUC__ < 7
-+# if __GNUC__ < 7 || !__has_attribute(__fallthrough__)
++# if __GNUC__ < 7 || defined(__clang__)
  #  define FALLTHROUGH ((void) 0)
  # else
  #  define FALLTHROUGH __attribute__ ((__fallthrough__))
-diff -up wget-1.20/lib/unistr/u8-uctomb-aux.c.0015~ wget-1.20/lib/unistr/u8-uctomb-aux.c
---- wget-1.20/lib/unistr/u8-uctomb-aux.c.0015~	2018-11-30 00:07:21.000000000 +0100
-+++ wget-1.20/lib/unistr/u8-uctomb-aux.c	2018-12-01 09:20:59.113955729 +0100
+diff -up wget-1.20.2/lib/unistr/u8-uctomb-aux.c.4~ wget-1.20.2/lib/unistr/u8-uctomb-aux.c
+--- wget-1.20.2/lib/unistr/u8-uctomb-aux.c.4~	2019-04-01 20:26:24.000000000 +0200
++++ wget-1.20.2/lib/unistr/u8-uctomb-aux.c	2019-04-01 23:14:52.439364257 +0200
 @@ -21,7 +21,7 @@
  #include "unistr.h"
  
@@ -108,9 +108,9 @@ diff -up wget-1.20/lib/unistr/u8-uctomb-aux.c.0015~ wget-1.20/lib/unistr/u8-ucto
  #  define FALLTHROUGH ((void) 0)
  # else
  #  define FALLTHROUGH __attribute__ ((__fallthrough__))
-diff -up wget-1.20/lib/vasnprintf.c.0015~ wget-1.20/lib/vasnprintf.c
---- wget-1.20/lib/vasnprintf.c.0015~	2018-11-30 00:07:21.000000000 +0100
-+++ wget-1.20/lib/vasnprintf.c	2018-12-01 09:20:59.114955729 +0100
+diff -up wget-1.20.2/lib/vasnprintf.c.4~ wget-1.20.2/lib/vasnprintf.c
+--- wget-1.20.2/lib/vasnprintf.c.4~	2019-04-01 20:26:24.000000000 +0200
++++ wget-1.20.2/lib/vasnprintf.c	2019-04-01 23:14:52.440364261 +0200
 @@ -119,7 +119,7 @@
  #endif
  
@@ -120,9 +120,9 @@ diff -up wget-1.20/lib/vasnprintf.c.0015~ wget-1.20/lib/vasnprintf.c
  #  define FALLTHROUGH ((void) 0)
  # else
  #  define FALLTHROUGH __attribute__ ((__fallthrough__))
-diff -up wget-1.20/lib/xalloc-oversized.h.0015~ wget-1.20/lib/xalloc-oversized.h
---- wget-1.20/lib/xalloc-oversized.h.0015~	2018-11-30 00:07:21.000000000 +0100
-+++ wget-1.20/lib/xalloc-oversized.h	2018-12-01 09:20:59.115955729 +0100
+diff -up wget-1.20.2/lib/xalloc-oversized.h.4~ wget-1.20.2/lib/xalloc-oversized.h
+--- wget-1.20.2/lib/xalloc-oversized.h.4~	2019-04-01 20:26:24.000000000 +0200
++++ wget-1.20.2/lib/xalloc-oversized.h	2019-04-01 23:14:52.440364261 +0200
 @@ -41,7 +41,7 @@ typedef size_t __xalloc_count_type;
     positive and N must be nonnegative.  This is a macro, not a
     function, so that it works correctly even when SIZE_MAX < N.  */
