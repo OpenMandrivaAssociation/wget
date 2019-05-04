@@ -6,7 +6,7 @@
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.20.3
-Release:	1
+Release:	2
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -27,6 +27,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	texinfo
 BuildRequires:	idn-devel
 #BuildRequires:	perl(HTTP::Daemon)
+Requires:	openssl
 Requires:	rootcerts
 
 %description
