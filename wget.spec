@@ -1,12 +1,12 @@
 %bcond_with crosscompile
 %ifnarch riscv64
-%global optflags %{optflags} --rtlib=compiler-rt
+%global optflags %{optflags} -Oz --rtlib=compiler-rt
 %endif
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.20.3
-Release:	2
+Release:	3
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
