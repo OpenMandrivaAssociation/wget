@@ -3,8 +3,8 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.20.3
-Release:	5
+Version:	1.21
+Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		http://www.gnu.org/directory/GNU/wget.html
@@ -15,7 +15,6 @@ Patch8:		wget-1.20.1-default-content_disposition-on.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.16.1-add-force-clobber-option.patch
 #Patch14:	wget-1.15-etc.patch
-Patch15:	wget-1.19.3-check-for-__builtin_mul_overflow_p.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	lzip
@@ -65,7 +64,7 @@ autoconf
 
 # install -m755 util/rmold.pl %{buildroot}%{_bindir}/rmold
 
-%find_lang %{name}
+%find_lang %{name} --all-name
 
 %files -f %{name}.lang
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wgetrc
