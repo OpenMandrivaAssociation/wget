@@ -1,0 +1,72 @@
+diff -Naur wget-1.21.2/lib/cdefs.h wget-1.21.2.tpg/lib/cdefs.h
+--- wget-1.21.2/lib/cdefs.h	2021-09-07 18:59:08.000000000 +0000
++++ wget-1.21.2.tpg/lib/cdefs.h	2021-09-22 20:02:42.840640804 +0000
+@@ -615,7 +615,7 @@
+ #  define __attr_access_none(argno)
+ #endif
+ 
+-#if __GNUC_PREREQ (11, 0)
++#if __GNUC_PREREQ (11, 0) && !defined(__clang__)
+ /* Designates dealloc as a function to call to deallocate objects
+    allocated by the declared function.  */
+ # define __attr_dealloc(dealloc, argno) \
+diff -Naur wget-1.21.2/lib/dirent.in.h wget-1.21.2.tpg/lib/dirent.in.h
+--- wget-1.21.2/lib/dirent.in.h	2021-09-07 18:59:08.000000000 +0000
++++ wget-1.21.2.tpg/lib/dirent.in.h	2021-09-22 20:07:04.409364833 +0000
+@@ -59,7 +59,7 @@
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -Naur wget-1.21.2/lib/stdio.in.h wget-1.21.2.tpg/lib/stdio.in.h
+--- wget-1.21.2/lib/stdio.in.h	2021-09-07 18:59:09.000000000 +0000
++++ wget-1.21.2.tpg/lib/stdio.in.h	2021-09-22 20:07:38.599198290 +0000
+@@ -95,7 +95,7 @@
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -Naur wget-1.21.2/lib/stdlib.in.h wget-1.21.2.tpg/lib/stdlib.in.h
+--- wget-1.21.2/lib/stdlib.in.h	2021-09-07 18:59:09.000000000 +0000
++++ wget-1.21.2.tpg/lib/stdlib.in.h	2021-09-22 20:07:24.009269354 +0000
+@@ -103,7 +103,7 @@
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -Naur wget-1.21.2/m4/gnulib-common.m4 wget-1.21.2.tpg/m4/gnulib-common.m4
+--- wget-1.21.2/m4/gnulib-common.m4	2021-09-07 18:59:10.000000000 +0000
++++ wget-1.21.2.tpg/m4/gnulib-common.m4	2021-09-22 20:05:28.419832675 +0000
+@@ -176,7 +176,7 @@
+    _GL_ATTRIBUTE_DEALLOC_FREE declares that the function returns pointers that
+    can be freed via 'free'; it can be used only after including <stdlib.h>.  */
+ /* Applies to: functions.  Cannot be used on inline functions.  */
+-#if _GL_GNUC_PREREQ (11, 0)
++#if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
+ # define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ #else
+ # define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -Naur wget-1.21.2/src/config.h.in wget-1.21.2.tpg/src/config.h.in
+--- wget-1.21.2/src/config.h.in	2021-09-07 19:00:29.000000000 +0000
++++ wget-1.21.2.tpg/src/config.h.in	2021-09-22 20:05:45.669748570 +0000
+@@ -2481,7 +2481,7 @@
+    _GL_ATTRIBUTE_DEALLOC_FREE declares that the function returns pointers that
+    can be freed via 'free'; it can be used only after including <stdlib.h>.  */
+ /* Applies to: functions.  Cannot be used on inline functions.  */
+-#if _GL_GNUC_PREREQ (11, 0)
++#if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
+ # define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ #else
+ # define _GL_ATTRIBUTE_DEALLOC(f, i)

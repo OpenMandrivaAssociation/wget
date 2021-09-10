@@ -3,7 +3,7 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.21.1
+Version:	1.21.2
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
@@ -15,15 +15,23 @@ Patch8:		wget-1.20.1-default-content_disposition-on.patch
 # needed by urpmi, inspired by http://matthewm.boedicker.org/code/src/wget_force_clobber.patch
 Patch13:	wget-1.16.1-add-force-clobber-option.patch
 #Patch14:	wget-1.15-etc.patch
+Patch15:	wget-1.21.2-fix-clang.patch
 Provides:	webclient
 Provides:	webfetch
+BuildRequires:	autoconf-archive
 BuildRequires:	lzip
 BuildRequires:	gettext
-BuildRequires:	pkgconfig(openssl)
+BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	texinfo
-BuildRequires:	idn-devel
-#BuildRequires:	perl(HTTP::Daemon)
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(gpgme)
+BuildRequires:	pkgconfig(libidn2)
+BuildRequires:	pkgconfig(libunistring)
+BuildRequires:	pkgconfig(libpsl)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(uuid)
+BuildRequires:	pkgconfig(libpcre2-posix)
 Requires:	openssl
 Requires:	rootcerts
 
@@ -48,6 +56,8 @@ autoconf
 	--enable-ipv6 \
 	--disable-rpath \
 	--with-ssl=openssl \
+	--with-linux-crypto \
+	--with-openssl=no \
 %if %{with crosscompile}
 	--with-libssl-prefix=$SYSROOT
 %endif
@@ -70,5 +80,5 @@ autoconf
 %verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/wgetrc
 %doc AUTHORS MAILING-LIST NEWS README
 %{_bindir}/*
-%{_infodir}/*
-%{_mandir}/man1/wget.1*
+%doc %{_infodir}/*
+%doc %{_mandir}/man1/wget.1*
