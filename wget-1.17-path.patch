@@ -1,7 +1,30 @@
-diff -Naur wget-1.17/README wget-1.17.tpg/README
---- wget-1.17/README	2015-11-09 15:24:06.000000000 +0000
-+++ wget-1.17.tpg/README	2015-11-16 18:46:01.662099454 +0000
-@@ -33,7 +33,7 @@
+diff --git a/NEWS b/NEWS
+index d23ae95..aa3247f 100644
+--- a/NEWS
++++ b/NEWS
+@@ -935,7 +935,7 @@ distributed with Wget.
+ 
+ ** Compiles on pre-ANSI compilers.
+ 
+-** Global wgetrc now goes to /usr/local/etc (i.e. $sysconfdir).
++** Global wgetrc now goes to /etc (i.e. $sysconfdir).
+ 
+ ** Lots of bugfixes.
+ 
+@@ -998,7 +998,7 @@ Emacs, standalone info, or converted to HTML, dvi or postscript.
+ ** Fixed a long-standing bug, so that Wget now works over SLIP
+ connections.
+ 
+-** You can have a system-wide wgetrc (/usr/local/lib/wgetrc by
++** You can have a system-wide wgetrc (/etc/wgetrc by
+ default). Settings in $HOME/.wgetrc override the global ones, of
+ course :-)
+ 
+diff --git a/README b/README
+index 692e1c6..38231c9 100644
+--- a/README
++++ b/README
+@@ -33,7 +33,7 @@ for socks.
  
  Most of the features are configurable, either through command-line
  options, or via initialization file .wgetrc.  Wget allows you to
@@ -10,9 +33,10 @@ diff -Naur wget-1.17/README wget-1.17.tpg/README
  site settings.
  
  Wget works under almost all Unix variants in use today and, unlike
-diff -Naur wget-1.17/doc/sample.wgetrc wget-1.17.tpg/doc/sample.wgetrc
---- wget-1.17/doc/sample.wgetrc	2015-11-09 15:24:06.000000000 +0000
-+++ wget-1.17.tpg/doc/sample.wgetrc	2015-11-16 18:41:40.852850360 +0000
+diff --git a/doc/sample.wgetrc b/doc/sample.wgetrc
+index c0d0779..9a73ada 100644
+--- a/doc/sample.wgetrc
++++ b/doc/sample.wgetrc
 @@ -10,7 +10,7 @@
  ## Or online here:
  ##   https://www.gnu.org/software/wget/manual/wget.html#Startup-File
@@ -31,9 +55,10 @@ diff -Naur wget-1.17/doc/sample.wgetrc wget-1.17.tpg/doc/sample.wgetrc
  ## Think well before you change them, since they may reduce wget's
  ## functionality, and make it behave contrary to the documentation:
  ##
-diff -Naur wget-1.17/doc/sample.wgetrc.munged_for_texi_inclusion wget-1.17.tpg/doc/sample.wgetrc.munged_for_texi_inclusion
---- wget-1.17/doc/sample.wgetrc.munged_for_texi_inclusion	2015-11-15 14:11:06.000000000 +0000
-+++ wget-1.17.tpg/doc/sample.wgetrc.munged_for_texi_inclusion	2015-11-16 18:41:59.285364035 +0000
+diff --git a/doc/sample.wgetrc.munged_for_texi_inclusion b/doc/sample.wgetrc.munged_for_texi_inclusion
+index 3c7f2f4..521ef16 100644
+--- a/doc/sample.wgetrc.munged_for_texi_inclusion
++++ b/doc/sample.wgetrc.munged_for_texi_inclusion
 @@ -10,7 +10,7 @@
  ## Or online here:
  ##   https://www.gnu.org/software/wget/manual/wget.html#Startup-File
@@ -52,19 +77,20 @@ diff -Naur wget-1.17/doc/sample.wgetrc.munged_for_texi_inclusion wget-1.17.tpg/d
  ## Think well before you change them, since they may reduce wget's
  ## functionality, and make it behave contrary to the documentation:
  ##
-diff -Naur wget-1.17/doc/wget.info wget-1.17.tpg/doc/wget.info
---- wget-1.17/doc/wget.info	2015-11-15 14:11:08.000000000 +0000
-+++ wget-1.17.tpg/doc/wget.info	2015-11-16 18:44:08.840974611 +0000
-@@ -113,7 +113,7 @@
+diff --git a/doc/wget.info b/doc/wget.info
+index 40ce0d4..89c6652 100644
+--- a/doc/wget.info
++++ b/doc/wget.info
+@@ -109,7 +109,7 @@ retrieval through HTTP proxies.
     • Most of the features are fully configurable, either through command
       line options, or via the initialization file ‘.wgetrc’ (*note
       Startup File::).  Wget allows you to define “global” startup files
 -     (‘/usr/local/etc/wgetrc’ by default) for site settings.  You can
 +     (‘/etc/wgetrc’ by default) for site settings.  You can
       also specify the location of a startup file with the –config
-      option.
- 
-@@ -2712,8 +2712,8 @@
+      option.  To disable the reading of config files, use –no-config.
+      If both –config and –no-config are given, –no-config is ignored.
+@@ -2825,8 +2825,8 @@ File: wget.info,  Node: Wgetrc Location,  Next: Wgetrc Syntax,  Prev: Startup Fi
  ===================
  
  When initializing, Wget will look for a “global” startup file,
@@ -75,7 +101,7 @@ diff -Naur wget-1.17/doc/wget.info wget-1.17.tpg/doc/wget.info
  there, if it exists.
  
     Then it will look for the user’s file.  If the environmental variable
-@@ -2724,7 +2724,7 @@
+@@ -2837,7 +2837,7 @@ further attempts will be made.
  
     The fact that user’s settings are loaded after the system-wide ones
  means that in case of collision user’s wgetrc _overrides_ the
@@ -84,7 +110,7 @@ diff -Naur wget-1.17/doc/wget.info wget-1.17.tpg/doc/wget.info
  admins, away!
  
  
-@@ -3261,7 +3261,7 @@
+@@ -3380,7 +3380,7 @@ its line.
       ## Or online here:
       ##   https://www.gnu.org/software/wget/manual/wget.html#Startup-File
       ##
@@ -93,7 +119,7 @@ diff -Naur wget-1.17/doc/wget.info wget-1.17.tpg/doc/wget.info
       ## (global, for all users) or $HOME/.wgetrc (for a single user).
       ##
       ## To use the settings in this file, you will have to uncomment them,
-@@ -3273,7 +3273,7 @@
+@@ -3392,7 +3392,7 @@ its line.
  
  
       ##
@@ -102,18 +128,20 @@ diff -Naur wget-1.17/doc/wget.info wget-1.17.tpg/doc/wget.info
       ## Think well before you change them, since they may reduce wget's
       ## functionality, and make it behave contrary to the documentation:
       ##
-diff -Naur wget-1.17/doc/wget.texi wget-1.17.tpg/doc/wget.texi
---- wget-1.17/doc/wget.texi	2015-11-09 15:24:17.000000000 +0000
-+++ wget-1.17.tpg/doc/wget.texi	2015-11-16 18:45:48.606741401 +0000
-@@ -191,14 +191,14 @@
+diff --git a/doc/wget.texi b/doc/wget.texi
+index eaf6b38..608d008 100644
+--- a/doc/wget.texi
++++ b/doc/wget.texi
+@@ -190,7 +190,7 @@ gauge can be customized to your preferences.
  Most of the features are fully configurable, either through command line
  options, or via the initialization file @file{.wgetrc} (@pxref{Startup
  File}).  Wget allows you to define @dfn{global} startup files
 -(@file{/usr/local/etc/wgetrc} by default) for site settings. You can also
 +(@file{/etc/wgetrc} by default) for site settings. You can also
  specify the location of a startup file with the --config option.
-  
- 
+ To disable the reading of config files, use --no-config.
+ If both --config and --no-config are given, --no-config is ignored.
+@@ -199,7 +199,7 @@ If both --config and --no-config are given, --no-config is ignored.
  @ignore
  @c man begin FILES
  @table @samp
@@ -122,7 +150,7 @@ diff -Naur wget-1.17/doc/wget.texi wget-1.17.tpg/doc/wget.texi
  Default location of the @dfn{global} startup file.
  
  @item .wgetrc
-@@ -3030,8 +3030,8 @@
+@@ -3154,8 +3154,8 @@ commands.
  @cindex location of wgetrc
  
  When initializing, Wget will look for a @dfn{global} startup file,
@@ -133,7 +161,7 @@ diff -Naur wget-1.17/doc/wget.texi wget-1.17.tpg/doc/wget.texi
  from there, if it exists.
  
  Then it will look for the user's file.  If the environmental variable
-@@ -3042,7 +3042,7 @@
+@@ -3166,7 +3166,7 @@ If @code{WGETRC} is not set, Wget will try to load @file{$HOME/.wgetrc}.
  
  The fact that user's settings are loaded after the system-wide ones
  means that in case of collision user's wgetrc @emph{overrides} the
