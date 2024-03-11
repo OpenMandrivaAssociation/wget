@@ -3,7 +3,7 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.21.4
+Version:	1.24.5
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
