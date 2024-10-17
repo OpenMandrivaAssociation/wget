@@ -7,7 +7,7 @@ Version:	1.24.5
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
-URL:		http://www.gnu.org/directory/GNU/wget.html
+URL:		https://www.gnu.org/directory/GNU/wget.html
 Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.lz
 # The following patch is needed for authenticated sites where login can have '@':
 Patch7:		wget-1.10-url_password.patch
