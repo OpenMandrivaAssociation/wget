@@ -3,17 +3,14 @@
 
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
-Version:	1.24.5
+Version:	1.25.0
 Release:	1
 Group:		Networking/WWW
 License:	GPLv3
 URL:		https://www.gnu.org/directory/GNU/wget.html
 Source0:	ftp://ftp.gnu.org/pub/gnu/wget/%{name}-%{version}.tar.lz
-# The following patch is needed for authenticated sites where login can have '@':
-Patch7:		wget-1.10-url_password.patch
 Patch8:		wget-1.20.1-default-content_disposition-on.patch
 Patch14:	https://src.fedoraproject.org/rpms/wget/raw/rawhide/f/wget-1.17-path.patch
-Patch15:	wget-1.21.2-fix-clang.patch
 Provides:	webclient
 Provides:	webfetch
 BuildRequires:	autoconf-archive
