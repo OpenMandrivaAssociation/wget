@@ -13,6 +13,10 @@ Patch8:		wget-1.20.1-default-content_disposition-on.patch
 Patch14:	https://src.fedoraproject.org/rpms/wget/raw/rawhide/f/wget-1.17-path.patch
 Provides:	webclient
 Provides:	webfetch
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	autoconf-archive
 BuildRequires:	lzip
 BuildRequires:	gettext
