@@ -4,7 +4,7 @@
 Summary:	A utility for retrieving files using the HTTP or FTP protocols
 Name:		wget
 Version:	1.25.0
-Release:	2
+Release:	3
 Group:		Networking/WWW
 License:	GPLv3
 URL:		https://www.gnu.org/directory/GNU/wget.html
@@ -44,6 +44,10 @@ configurability.
 
 %prep
 %autosetup -p1
+
+# OpenSSL 3/4 no longer ship SSLv3_client_method; OPENSSL_NO_SSL3_METHOD
+# is not defined on OpenSSL 4, so the existing #ifndef is not enough.
+sed -i 's|#ifndef OPENSSL_NO_SSL3_METHOD|#if !defined(OPENSSL_NO_SSL3_METHOD) \&\& OPENSSL_VERSION_NUMBER < 0x30000000L|' src/openssl.c
 
 aclocal -I m4
 automake -a
